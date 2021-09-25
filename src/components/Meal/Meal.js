@@ -1,7 +1,7 @@
 import React from "react";
 
 const Meal = (props) => {
-  //   console.log(props.meal);
+  // console.log(props.meal);
   //   console.log(props.handleBtn);
   const { strMeal, strMealThumb, strCategory, strArea, strInstructions } =
     props.meal;

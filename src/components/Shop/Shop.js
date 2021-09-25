@@ -4,8 +4,8 @@ import Meal from "../Meal/Meal";
 
 const Shop = () => {
   const [meals, setMeals] = useState([]);
-  const [name, setName] = useState([]);
-  const [displayMeals, setDisplayMeals] = useState([]);
+  const [names, setNames] = useState([]);
+  const [searchName, setSearchName] = useState([]);
   useEffect(() => {
     fetch("https://www.themealdb.com/api/json/v1/1/search.php?f=a")
       .then((res) => res.json())
@@ -13,26 +13,26 @@ const Shop = () => {
   }, []);
 
   useEffect(() => {
-    const searchLink = displayMeals;
-    fetch(`${searchLink}`)
+    fetch("https://www.themealdb.com/api/json/v1/1/search.php?f=" + searchName)
       .then((res) => res.json())
       .then((data) => setMeals(data.meals));
-  }, [displayMeals]);
+  }, [searchName]);
   //   handle search input
   const handleSearch = (event) => {
     const searchText = event.target.value;
     if (searchText === "") {
       console.log("not found");
     } else {
-      setDisplayMeals(
-        `https://www.themealdb.com/api/json/v1/1/search.php?f=${searchText}`
-      );
+      setSearchName(searchText);
     }
   };
   //   handle button
   const handleBtn = (product) => {
     // console.log(product);
-    setName(product);
+    // setName(product);
+    const newProduct = [...names, product];
+    // console.log(newProduct);
+    setNames(newProduct);
   };
   return (
     <div className="container">
@@ -53,7 +53,7 @@ const Shop = () => {
           ))}
         </div>
         <div className="col-md-3">
-          <DisplayName name={name}></DisplayName>
+          <DisplayName name={names}></DisplayName>
         </div>
       </div>
     </div>
